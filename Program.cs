@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace HabitLogger;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Call the menu
+        Menu menu = new Menu();
+        menu.ShowMenu();
+    }
+}
