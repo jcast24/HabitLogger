@@ -23,6 +23,17 @@ public class Menu
                 case "0":
                     isOn = false;
                     break;
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                default:
+                    Console.WriteLine("Invalid Command. Please type a number from 0 to 4");
+                    break;
             }
             
 
