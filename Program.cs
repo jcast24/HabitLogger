@@ -5,19 +5,13 @@ namespace HabitLogger;
 class Program
 {
     private static string connectionString = @"Data Source=habit.db";
+
+    public static string DbConnect => connectionString;
+
+
     static void Main(string[] args)
     {
-        // Console.Clear();
-        //
-        // // Start up message
-        // Console.WriteLine("-------------------------");
-        // Console.WriteLine("Welcome to Habit Logger!");
-        // Console.WriteLine("-------------------------");
-        // Console.WriteLine();
-        //
-        // // Call the menu
-        // Menu menu = new Menu();
-        // menu.ShowMenu();
+        // establish connection with db 
         using (var connection = new SqliteConnection(connectionString))
         {
             // open the connection
@@ -25,17 +19,26 @@ class Program
             
             // tell the connection to create a command
             var tableCmd = connection.CreateCommand();
-
-            tableCmd.CommandText = "";
+            
+            // create the table if it doesn't exist
+            tableCmd.CommandText = @"CREATE TABLE IF NOT EXISTS habit (ID INTEGER PRIMARY KEY AUTOINCREMENT, habitName TEXT, Date TEXT)";
 
             // ask the database not to return any values
             tableCmd.ExecuteNonQuery();
             
             // close the connection with database
             connection.Close();
-
         }
-            
-
+        
+        Console.Clear();
+        // Start up message
+        Console.WriteLine("-------------------------");
+        Console.WriteLine("Welcome to Habit Logger!");
+        Console.WriteLine("-------------------------");
+        Console.WriteLine();
+                
+        // Call the menu
+        Menu menu = new Menu();
+        menu.ShowMenu();
     }
 }
