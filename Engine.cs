@@ -64,7 +64,7 @@ public class Engine
         {
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"INSERT INTO Habit(Name, Date, NumberOfHours) VALUES('{name}, {date} ,{numOfHours}')";
+            tableCmd.CommandText = $"INSERT INTO Habit(Name, Date, Hours) VALUES ('{name}', '{date}' ,'{numOfHours}')";
             tableCmd.ExecuteNonQuery();
             
             connection.Close();
