@@ -29,6 +29,7 @@ public class Menu
                     break;
                 case "2":
                     // Add a new habit
+                    Engine.Insert();
                     break;
                 case "3":
                     // Delete a habit
