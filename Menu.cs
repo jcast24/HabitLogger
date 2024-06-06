@@ -14,7 +14,7 @@ public class Menu
             Console.WriteLine("Type 2 to Add a new habit");
             Console.WriteLine("Type 3 to Delete a habit");
             Console.WriteLine("Type 4 to Update a habit");
-            
+
             Console.Write("Your option: ");
             var option = Console.ReadLine();
 
@@ -33,6 +33,7 @@ public class Menu
                     break;
                 case "3":
                     // Delete a habit
+                    Engine.Delete();
                     break;
                 case "4":
                     // Update a habit
