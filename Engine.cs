@@ -38,9 +38,9 @@ public class Engine
             {
                 Console.WriteLine("No rows found");
             }
-            
+
             connection.Close();
-            
+
             Console.WriteLine();
             foreach (var hb in tableData)
             {
@@ -51,23 +51,53 @@ public class Engine
     }
     public static void Insert()
     {
+        // TODO: Add input validation
         Console.WriteLine("Enter name of habit: ");
         string name = Console.ReadLine();
-            
+
         Console.WriteLine("Enter date in format dd-MM-yyyy: ");
         string date = Console.ReadLine();
-        
+
         Console.WriteLine("Enter the number of hours: ");
         int numOfHours = int.Parse(Console.ReadLine());
-            
+
         using (var connection = new SqliteConnection(Program.DbConnect))
         {
             connection.Open();
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $"INSERT INTO Habit(Name, Date, Hours) VALUES ('{name}', '{date}' ,'{numOfHours}')";
             tableCmd.ExecuteNonQuery();
-            
+
             connection.Close();
         }
+    }
+
+    public static void Delete()
+    {
+        Console.Clear();
+
+        DisplayAll();
+
+        Console.WriteLine("Please enter an ID to delete: ");
+
+        int getRecordID = int.Parse(Console.ReadLine());
+
+        using (var connection = new SqliteConnection(Program.DbConnect))
+        {
+            connection.Open();
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText = $"DELETE from habit WHERE Id = '{getRecordID}'";
+
+            int rowCount = tableCmd.ExecuteNonQuery();
+
+            if (rowCount == 0)
+            {
+                Console.WriteLine($"Record with Id {getRecordID} doesn't exist");
+                Delete();
+            }
+        }
+
+        Console.WriteLine($"Record with Id {getRecordID} was deleted.");
+
     }
 }
