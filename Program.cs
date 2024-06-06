@@ -7,8 +7,7 @@ class Program
     private static string connectionString = @"Data Source=habit.db";
 
     public static string DbConnect => connectionString;
-
-
+    
     static void Main(string[] args)
     {
         // establish connection with db 
