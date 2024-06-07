@@ -96,8 +96,50 @@ public class Engine
                 Delete();
             }
         }
-
         Console.WriteLine($"Record with Id {getRecordID} was deleted.");
+    }
 
+    public static void Update()
+    {
+        Console.Clear();
+
+        DisplayAll();
+
+        Console.WriteLine("Please enter the ID to update a habit: ");
+
+        int getRecordID = int.Parse(Console.ReadLine());
+
+        using (var connection = new SqliteConnection(Program.DbConnect))
+        {
+            connection.Open();
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM habit WHERE id={getRecordID})";
+
+            int check = Convert.ToInt32(tableCmd.ExecuteScalar());
+
+            if (check == 0)
+            {
+                Console.WriteLine("Record does not exist");
+                connection.Close();
+                Update();
+            }
+
+            Console.WriteLine("Enter name of new habit: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter date in format dd-MM-yyyy: ");
+            string date = Console.ReadLine();
+
+            Console.WriteLine("Enter the number of hours: ");
+            int numOfHours = int.Parse(Console.ReadLine());
+
+            var newCommand = connection.CreateCommand();
+            newCommand.CommandText = $"UPDATE habit SET Name = '{name}', Date = '{date}', Hours = '{numOfHours}' WHERE Id = '{getRecordID}' ";
+
+            newCommand.ExecuteNonQuery();
+
+            connection.Close();
+
+        }
     }
 }
