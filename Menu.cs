@@ -37,6 +37,7 @@ public class Menu
                     break;
                 case "4":
                     // Update a habit
+                    Engine.Update();
                     break;
                 default:
                     Console.WriteLine("Invalid Command. Please type a number from 0 to 4");
