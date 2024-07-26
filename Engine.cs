@@ -111,6 +111,14 @@ public class Engine
                 Console.WriteLine($"Record with Id {getRecordID} doesn't exist");
                 Delete();
             }
+
+            // update ID's when we delete an ID
+            var updateCommand = connection.CreateCommand();
+            updateCommand.CommandText = $"UPDATE habit SET id = id - 1 WHERE id > 1";
+            updateCommand.ExecuteNonQuery();
+
+
+            connection.Close();
         }
         Console.WriteLine($"Record with Id {getRecordID} was deleted.");
     }
@@ -143,8 +151,7 @@ public class Engine
             Console.WriteLine("Enter name of new habit: ");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Enter date in format dd-MM-yyyy: ");
-            string date = Console.ReadLine();
+            string date = GetDate();
 
             Console.WriteLine("Enter the number of hours: ");
             int numOfHours = int.Parse(Console.ReadLine());
