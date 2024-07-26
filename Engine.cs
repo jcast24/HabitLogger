@@ -1,12 +1,27 @@
 ﻿using System.Data;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
+using SQLitePCL;
 
 namespace HabitLogger;
 
 public class Engine
 {
     // private static string connectionString = @"Data source=habit.db";
+
+    public static string GetDate()
+    {
+        Console.WriteLine("Please insert the date: (Format dd-mm-yyyy).");
+        string dateInput = Console.ReadLine();
+
+        while (!DateTime.TryParseExact(dateInput, "dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
+        {
+            Console.WriteLine("Invalid date. Format: dd-MM-yyyy. Try again: ");
+            dateInput = Console.ReadLine();
+        }
+        return dateInput;
+    }
+
     public static void DisplayAll()
     {
         using (var connection = new SqliteConnection(Program.DbConnect))
@@ -55,8 +70,9 @@ public class Engine
         Console.WriteLine("Enter name of habit: ");
         string name = Console.ReadLine();
 
-        Console.WriteLine("Enter date in format dd-MM-yyyy: ");
-        string date = Console.ReadLine();
+        // Console.WriteLine("Enter date in format dd-MM-yyyy: ");
+        // string date = Console.ReadLine();
+        string date = GetDate();
 
         Console.WriteLine("Enter the number of hours: ");
         int numOfHours = int.Parse(Console.ReadLine());
